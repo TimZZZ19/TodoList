@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  width: 65rem;
+  height: 10rem;
+}
+
+.todo-input,
+.todo-submit-btn {
+  border: none;
+  padding: 0.5rem;
+  font-size: 3.2rem;
+}
+
+.filter select {
+  border: none;
+  padding: 1.1rem;
+  font-size: 2rem;
+}
