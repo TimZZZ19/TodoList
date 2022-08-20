@@ -11,7 +11,7 @@ function App() {
   return (
     <div className={styles.app}>
       <h1 className={styles.title}>Tim's Todo List</h1>
-      <Form />
+      <Form setTodos={setTodos} />
       <List todos={todos} />
     </div>
   );
