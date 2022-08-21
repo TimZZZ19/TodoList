@@ -3,7 +3,10 @@ import Form from "./components/Form";
 import List from "./components/List";
 import { useState } from "react";
 
-const todoExamples = ["laundry", "grocery"];
+const todoExamples = [
+  { todo: "laundry", completed: false, id: 1123 },
+  { todo: "grocery", completed: true, id: 4567 },
+];
 
 function App() {
   const [todos, setTodos] = useState(todoExamples);
@@ -12,7 +15,7 @@ function App() {
     <div className={styles.app}>
       <h1 className={styles.title}>Tim's Todo List</h1>
       <Form setTodos={setTodos} />
-      <List todos={todos} />
+      <List todos={todos} setTodos={setTodos} />
     </div>
   );
 }

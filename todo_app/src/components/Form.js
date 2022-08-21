@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./Form.module.css";
 import { useState, useRef, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 
 const Form = ({ setTodos }) => {
   const [newTodo, setNewTodo] = useState("");
+  const [errorMsgShown, setErrorMsgShown] = useState(false);
   const inputRef = useRef(null);
 
   const newTodoChangeHandler = (e) => setNewTodo(e.target.value);
@@ -11,10 +13,11 @@ const Form = ({ setTodos }) => {
   const newTodoSubmitHandler = (e) => {
     e.preventDefault();
     if (!newTodo) {
-      console.log("New todo can't be empty");
+      setErrorMsgShown(true);
+      setTimeout(() => setErrorMsgShown(false), 2000);
       return;
     }
-    setTodos((prev) => [...prev, newTodo]);
+    setTodos((prev) => [...prev, { todo: newTodo, id: uuid() }]);
     setNewTodo("");
   };
 
@@ -40,6 +43,13 @@ const Form = ({ setTodos }) => {
           <option>Completed</option>
           <option>Uncompleted</option>
         </select>
+      </div>
+      <div
+        className={`${styles["error-msg"]} ${
+          errorMsgShown && styles["error-msg--shown"]
+        }`}
+      >
+        <p>Input can't be empty</p>
       </div>
     </form>
   );
