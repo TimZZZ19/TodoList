@@ -3,7 +3,7 @@ import styles from "./Form.module.css";
 import { useState, useRef, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
-const Form = ({ setTodos }) => {
+const Form = ({ setTodos, setFilterValue }) => {
   const [newTodo, setNewTodo] = useState("");
   const [errorMsgShown, setErrorMsgShown] = useState(false);
   const inputRef = useRef(null);
@@ -14,14 +14,21 @@ const Form = ({ setTodos }) => {
     e.preventDefault();
     if (!newTodo) {
       setErrorMsgShown(true);
-      setTimeout(() => setErrorMsgShown(false), 2000);
+      setTimeout(() => setErrorMsgShown(false), 1500);
       return;
     }
-    setTodos((prev) => [...prev, { todo: newTodo, id: uuid() }]);
+    setTodos((prev) => [
+      ...prev,
+      { todo: newTodo, id: uuid(), completed: false },
+    ]);
     setNewTodo("");
   };
 
   useEffect(() => inputRef.current.focus(), []);
+
+  const selectHandler = (e) => {
+    setFilterValue(e.target.value);
+  };
 
   return (
     <form onSubmit={newTodoSubmitHandler} className={styles.form}>
@@ -38,7 +45,7 @@ const Form = ({ setTodos }) => {
         </button>
       </div>
       <div className={styles.filter}>
-        <select>
+        <select onChange={selectHandler}>
           <option>All</option>
           <option>Completed</option>
           <option>Uncompleted</option>
